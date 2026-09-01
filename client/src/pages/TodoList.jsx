@@ -3,9 +3,7 @@ import axios from "axios";
 import TodoForm from "../components/TodoForm";
 import TodoCard from "../components/TodoCard";
 import TodoFilters from "../components/TodoFilters";
-
-const API_URL =
-  "https://ziptrrip-todo-app-0t3k.onrender.com/api/todos";
+const API_URL = "/api/todos";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);

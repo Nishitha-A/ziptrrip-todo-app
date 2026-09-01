@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
+
 require("dotenv").config();
 
 const todoRoutes = require("./routes/todos");
@@ -10,12 +12,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Ziptrrip Todo API is running successfully 🚀");
-});
 
+// API Routes
 app.use("/api/todos", todoRoutes);
 
+
+// Serve React frontend
+const clientBuildPath = path.join(
+  __dirname,
+  "../client/dist"
+);
+
+app.use(express.static(clientBuildPath));
+
+
+// Root / Frontend route
+app.get("/", (req, res) => {
+  res.sendFile(
+    path.join(clientBuildPath, "index.html")
+  );
+});
+
+
+// Connect MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -28,5 +47,8 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log("Database connection error:", error);
+    console.log(
+      "Database connection error:",
+      error
+    );
   });

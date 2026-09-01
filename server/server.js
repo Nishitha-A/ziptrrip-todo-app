@@ -10,6 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Ziptrrip Todo API is running successfully 🚀");
+});
+
 app.use("/api/todos", todoRoutes);
 
 mongoose

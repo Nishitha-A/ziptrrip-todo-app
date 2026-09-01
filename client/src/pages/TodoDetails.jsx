@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/todos";
+const API_URL =
+  `${import.meta.env.VITE_API_URL}/todos`;
 
 function TodoDetails() {
   const [todo, setTodo] = useState(null);

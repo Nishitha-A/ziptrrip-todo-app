@@ -4,7 +4,8 @@ import TodoForm from "../components/TodoForm";
 import TodoCard from "../components/TodoCard";
 import TodoFilters from "../components/TodoFilters";
 
-const API_URL = "http://localhost:5000/api/todos";
+const API_URL =
+  `${import.meta.env.VITE_API_URL}/todos`;
 
 function TodoList() {
   const [todos, setTodos] = useState([]);

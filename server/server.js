@@ -18,23 +18,17 @@ app.use("/api/todos", todoRoutes);
 
 
 // Serve React frontend
-const clientBuildPath = path.join(
-  __dirname,
-  "../client/dist"
-);
+const clientBuildPath = path.join(__dirname, "../client/dist");
 
 app.use(express.static(clientBuildPath));
 
 
-// Root / Frontend route
-app.get("/", (req, res) => {
-  res.sendFile(
-    path.join(clientBuildPath, "index.html")
-  );
+// React fallback route - Express 5 compatible
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
 });
 
 
-// Connect MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -47,8 +41,5 @@ mongoose
     });
   })
   .catch((error) => {
-    console.log(
-      "Database connection error:",
-      error
-    );
+    console.log("Database connection error:", error);
   });

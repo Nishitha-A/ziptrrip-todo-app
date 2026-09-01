@@ -5,7 +5,7 @@ import TodoCard from "../components/TodoCard";
 import TodoFilters from "../components/TodoFilters";
 
 const API_URL =
-  `${import.meta.env.VITE_API_URL}/todos`;
+  "https://ziptrrip-todo-app-0t3k.onrender.com/api/todos";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);

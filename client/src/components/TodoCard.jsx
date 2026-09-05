@@ -4,17 +4,18 @@ function TodoCard({
   deleteTodo,
 }) {
   const openTodoDetails = () => {
-    window.location.href = `/todo.html?id=${todo._id}`;
+  window.location.href =
+    `/?todoId=${encodeURIComponent(todo._id)}`;
+};
+
+  const handleCheckboxChange = (event) => {
+    event.stopPropagation();
+    toggleCompleted(todo);
   };
 
   const handleDelete = (event) => {
     event.stopPropagation();
     deleteTodo(todo._id);
-  };
-
-  const handleCheckbox = (event) => {
-    event.stopPropagation();
-    toggleCompleted(todo);
   };
 
   return (
@@ -23,16 +24,32 @@ function TodoCard({
         todo.completed ? "completed-task" : ""
       }`}
       onClick={openTodoDetails}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+          openTodoDetails();
+        }
+      }}
+      title="Click to view and edit this task"
     >
       <div className="task-left">
 
         <input
           type="checkbox"
           checked={todo.completed}
-          onChange={handleCheckbox}
+          onChange={handleCheckboxChange}
+          onClick={(event) =>
+            event.stopPropagation()
+          }
         />
 
         <div className="task-content">
+
           <h3>{todo.title}</h3>
 
           {todo.description && (
@@ -40,12 +57,15 @@ function TodoCard({
           )}
 
           <div className="task-meta">
+
             <span
               className={`priority-tag ${
-                todo.priority.toLowerCase()
+                (
+                  todo.priority || "Medium"
+                ).toLowerCase()
               }`}
             >
-              {todo.priority}
+              {todo.priority || "Medium"}
             </span>
 
             {todo.dueDate && (
@@ -56,6 +76,7 @@ function TodoCard({
                 ).toLocaleDateString()}
               </span>
             )}
+
           </div>
         </div>
       </div>
@@ -68,7 +89,8 @@ function TodoCard({
             event.stopPropagation();
             openTodoDetails();
           }}
-          title="View task"
+          title="View and edit task"
+          type="button"
         >
           ◉
         </button>
@@ -77,6 +99,7 @@ function TodoCard({
           className="delete-button"
           onClick={handleDelete}
           title="Delete task"
+          type="button"
         >
           🗑
         </button>

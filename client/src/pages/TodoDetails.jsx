@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL =
-  `${import.meta.env.VITE_API_URL}/todos`;
+const API_URL = "/api/todos";
 
 function TodoDetails() {
   const [todo, setTodo] = useState(null);
@@ -15,9 +14,8 @@ function TodoDetails() {
   const [priority, setPriority] = useState("Medium");
   const [dueDate, setDueDate] = useState("");
 
-  // Get Todo ID from URL query parameter
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = params.get("todoId");
 
   useEffect(() => {
     const fetchTodo = async () => {

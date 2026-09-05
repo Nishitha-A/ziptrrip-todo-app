@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import TodoList from "./pages/TodoList";
+import TodoDetails from "./pages/TodoDetails";
 import "./styles.css";
 
-ReactDOM.createRoot(
-  document.getElementById("root")
-).render(
+const params = new URLSearchParams(window.location.search);
+const todoId = params.get("todoId");
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <TodoList />
+    {todoId ? <TodoDetails /> : <TodoList />}
   </React.StrictMode>
 );

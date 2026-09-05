@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
   plugins: [react()],
@@ -17,8 +17,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        todo: resolve(__dirname, "todo.html"),
+        main: fileURLToPath(
+          new URL("./index.html", import.meta.url)
+        ),
+        todo: fileURLToPath(
+          new URL("./todo.html", import.meta.url)
+        ),
       },
     },
   },

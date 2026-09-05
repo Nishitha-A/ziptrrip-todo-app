@@ -127,7 +127,7 @@ function TodoList() {
 
         <div className="logo">
           <span className="logo-wave">🌊</span>
-          <span>OceanTodo</span>
+          <span>TodoList</span>
         </div>
 
         <div className="nav-links">
